@@ -6,15 +6,16 @@
 /*   By: asay <asay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:36:42 by asay              #+#    #+#             */
-/*   Updated: 2025/06/30 21:36:07 by asay             ###   ########.fr       */
+/*   Updated: 2025/06/30 22:34:26 by asay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putchar(char c)
+int	ft_putchar(char c)
 {
 	write(1, &c, 1);
+	return (0);
 }
 
 int	ft_putnbr(int nb)
@@ -55,6 +56,19 @@ int ft_str(char *str)
 	return (i);
 }
 
+int form(char x, va_list args)
+{
+	if (x == 's')
+		return (ft_str(va_arg(args, char *)));	
+	else if (x == 'd')
+		return (ft_putnbr(va_arg(args, int)));
+	else if (x == 'c')
+		return (ft_putchar((char)va_arg(args, int)));
+	else if(x == '%')
+		return (ft_putchar('%'));
+	return (0);
+}
+
 int ft_printf(const char *str, ...)
 {
 	int i;
@@ -69,29 +83,19 @@ int ft_printf(const char *str, ...)
 	{
 		if(str[i] == '%')
 		{
-			i++; 
-			if (str[i] == 's')
-				sum += ft_str(va_arg(args, char *));	
-			else if (str[i] == 'd')
-				sum += ft_putnbr(va_arg(args, int));
-			else if (str[i] == 'c')
-			{
-				kar = (char)va_arg(args, int);
-				sum += write(1, &kar, 1);
-			}
-			else if(str[i] == '%')
-				sum += write(1, "%", 1);
+			i++;
+			sum += form(str[i], args);
 			i++;
 		}
 		else
-			sum += write(1, &str[i++], 1);
+			sum += ft_putchar(str[i++]);
 	}
 	va_end(args);
 	return (sum);
 }
 
-// int main()
-// {
-// 	ft_printf("Hello %s! Number: %d, Char: %c, Percent: %%\n", "world", 42, 'A');
-// 	return 0;
-// }
+int main()
+{
+	ft_printf("Hello %s! Number: %d, Char: %c, Percent: %%\n", "world", 42, 'A');
+	return 0;
+}
