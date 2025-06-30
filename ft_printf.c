@@ -52,7 +52,7 @@ int ft_str(char *str)
 	i = -1;
 	while(str[++i])
 		write(1, &str[i], 1);
-	//write(1, "\n", 1);
+	//write(1, "\n", 1);   bununla garip bi yerlerde satır atlıyo, o yüzden sildim
 	return (i);
 }
 
@@ -94,8 +94,8 @@ int ft_printf(const char *str, ...)
 	return (sum);
 }
 
-int main()
-{
-	ft_printf("Hello %s! Number: %d, Char: %c, Percent: %%\n", "world", 42, 'A');
-	return 0;
-}
+// int main()
+// {
+// 	ft_printf("Hello %s! Number: %d, Char: %c, Percent: %%\n", "world", 42, 'A');
+// 	return 0;
+// }
