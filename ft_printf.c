@@ -6,7 +6,7 @@
 /*   By: asay <asay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:36:42 by asay              #+#    #+#             */
-/*   Updated: 2025/06/30 22:34:26 by asay             ###   ########.fr       */
+/*   Updated: 2025/07/03 19:42:22 by asay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int ft_str(char *str)
 	i = -1;
 	while(str[++i])
 		write(1, &str[i], 1);
-	//write(1, "\n", 1);   bununla garip bi yerlerde satır atlıyo, o yüzden sildim
+	//write(1, "\n", 1);
 	return (i);
 }
 
@@ -60,12 +60,20 @@ int form(char x, va_list args)
 {
 	if (x == 's')
 		return (ft_str(va_arg(args, char *)));	
-	else if (x == 'd')
+	else if (x == 'd' || x == 'i')
 		return (ft_putnbr(va_arg(args, int)));
 	else if (x == 'c')
 		return (ft_putchar((char)va_arg(args, int)));
-	else if(x == '%')
+	else if (x == '%')
 		return (ft_putchar('%'));
+	else if (x == 'p')
+		return (ft_putstr(va_arg(args, char *)));
+	else if (x == 'x')
+		return ();
+	else if(x == 'X')
+		return ();
+	else if (x == 'u')
+		return (ft_str(va_arg(args, unsigned int)));
 	return (0);
 }
 
@@ -76,7 +84,7 @@ int ft_printf(const char *str, ...)
 	char kar;
 	va_list args;
 	va_start(args, str); // va_start cagrisi her zaman % kontrolunden once olmali.
-	
+
 	i = 0;
 	sum = 0;
 	while(str[i])
@@ -94,8 +102,8 @@ int ft_printf(const char *str, ...)
 	return (sum);
 }
 
-// int main()
-// {
-// 	ft_printf("Hello %s! Number: %d, Char: %c, Percent: %%\n", "world", 42, 'A');
-// 	return 0;
-// }
+int main()
+{
+	ft_printf("Hello %s! Number: %d, Char: %c, Percent: %%\n", "world", 42, 'A');
+	return 0;
+}
