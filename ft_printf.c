@@ -56,7 +56,7 @@ int ft_str(char *str)
 	return (i);
 }
 
-int form(char x, va_list args)
+int form(char x, va_list args) 
 {
 	if (x == 's')
 		return (ft_str(va_arg(args, char *)));	
@@ -64,42 +64,52 @@ int form(char x, va_list args)
 		return (ft_putnbr(va_arg(args, int)));
 	else if (x == 'c')
 		return (ft_putchar((char)va_arg(args, int)));
+/* 
+Default Argument Promotion: variadic fonksiyonlar çağrıldığında küçük tamsaı tipleri büyük tam sayı tiplerine yükseltilit.
+	Sebep?
+ 		bellekte uyumu sağlamak, argümanları standart bit boyutta kullanmak için fonksiyon çağrısı sırasında 
+		argümanlar int olarak alınır. Eğer direkt int yerine char almış olsaydık va_arg'ın aldığı boyut ve tip,
+		argümanın bellek alanı ile uyuşmazdı. Yani gerçek argğman int olarak 4 byte kaplarken 1 byte gönderilmiş olacaktı.
+*/
 	else if (x == '%')
 		return (ft_putchar('%'));
 	else if (x == 'p')
 		return (ft_putstr(va_arg(args, char *)));
 	else if (x == 'x')
-		return ();
+		return (ft_conversion((long)va_arg(args, unsigned int);
+// long'a cast'ledik. buna 'explicit conversion' == 'type casting' deniyo. işaret değişimlerinde overflow'u engellemek için long'a çeviriyoruz.
+
 	else if(x == 'X')
 		return ();
 	else if (x == 'u')
 		return (ft_str(va_arg(args, unsigned int)));
-	return (0);
+	return (x);
 }
 
 int ft_printf(const char *str, ...)
 {
 	int i;
-	int sum;
+	int count;
 	char kar;
 	va_list args;
 	va_start(args, str); // va_start cagrisi her zaman % kontrolunden once olmali.
+	// variable str is crucial otherwise i dunno how many args are.
 
 	i = 0;
-	sum = 0;
+	count = 0;
 	while(str[i])
 	{
 		if(str[i] == '%')
 		{
 			i++;
-			sum += form(str[i], args);
+			count += form(str[i], args);
 			i++;
 		}
 		else
-			sum += ft_putchar(str[i++]);
+			count += ft_putchar(str[i++]);
 	}
-	va_end(args);
-	return (sum);
+	va_end(args); // 'args' is a variable of type 'va_list' used in a variadic function.
+	return (count);
 }
 
 int main()
