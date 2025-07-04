@@ -48,12 +48,22 @@ static int form(char x, va_list args)
 		return (ft_putnbr(va_arg(args, int)));
 	else if (x == 'c')
 		return (ft_putchar((char)va_arg(args, int)));
-		else if (x == '%')
+/* 
+	Default Argument Promotion: variadic fonksiyonlar çağrıldığında küçük tamsaı tipleri büyük tam sayı tiplerine yükseltilit.
+		Sebep?
+ 		bellekte uyumu sağlamak, argümanları standart bit boyutta kullanmak için fonksiyon çağrısı sırasında 
+		argümanlar int olarak alınır. Eğer direkt int yerine char almış olsaydık va_arg'ın aldığı boyut ve tip,
+		argümanın bellek alanı ile uyuşmazdı. Yani gerçek argğman int olarak 4 byte kaplarken 1 byte gönderilmiş olacaktı.
+*/
+		
+	else if (x == '%')
 		return (ft_putchar('%'));
 	else if (x == 'p')
 		return (ft_ptr(va_arg(args, void *)));
 	else if (x == 'x')
 		return (ft_hex((long)va_arg(args, unsigned int)));
+// long'a cast'ledik. buna 'explicit conversion' == 'type casting' deniyo. işaret değişimlerinde overflow'u engellemek için long'a çeviriyoruz.
+
 	else if(x == 'X')
 		return (ft_uphex((long)va_arg(args, unsigned int)));
 	else if (x == 'u')
@@ -74,7 +84,8 @@ int ft_printf(const char *str, ...)
 	int i;
 	int count;
 	va_list args;
-	va_start(args, str); 
+	va_start(args, str); // va_start cagrisi her zaman % kontrolunden once olmali.
+	// variable str is crucial otherwise i dunno how many args are.
 
 	i = 0;
 	count = 0;
