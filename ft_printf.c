@@ -6,17 +6,11 @@
 /*   By: asay <asay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:36:42 by asay              #+#    #+#             */
-/*   Updated: 2025/07/03 19:42:22 by asay             ###   ########.fr       */
+/*   Updated: 2025/07/04 22:02:18 by asay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int	ft_putchar(char c)
-{
-	write(1, &c, 1);
-	return (0);
-}
 
 int	ft_putnbr(int nb)
 {
@@ -45,18 +39,8 @@ int	ft_putnbr(int nb)
 	return (i);
 }
 
-int ft_str(char *str)
-{
-	int i;
-	
-	i = -1;
-	while(str[++i])
-		write(1, &str[i], 1);
-	//write(1, "\n", 1);
-	return (i);
-}
 
-int form(char x, va_list args) 
+static int form(char x, va_list args)
 {
 	if (x == 's')
 		return (ft_str(va_arg(args, char *)));	
@@ -64,36 +48,33 @@ int form(char x, va_list args)
 		return (ft_putnbr(va_arg(args, int)));
 	else if (x == 'c')
 		return (ft_putchar((char)va_arg(args, int)));
-/* 
-Default Argument Promotion: variadic fonksiyonlar çağrıldığında küçük tamsaı tipleri büyük tam sayı tiplerine yükseltilit.
-	Sebep?
- 		bellekte uyumu sağlamak, argümanları standart bit boyutta kullanmak için fonksiyon çağrısı sırasında 
-		argümanlar int olarak alınır. Eğer direkt int yerine char almış olsaydık va_arg'ın aldığı boyut ve tip,
-		argümanın bellek alanı ile uyuşmazdı. Yani gerçek argğman int olarak 4 byte kaplarken 1 byte gönderilmiş olacaktı.
-*/
-	else if (x == '%')
+		else if (x == '%')
 		return (ft_putchar('%'));
 	else if (x == 'p')
-		return (ft_putstr(va_arg(args, char *)));
+		return (ft_ptr(va_arg(args, void *)));
 	else if (x == 'x')
-		return (ft_conversion((long)va_arg(args, unsigned int);
-// long'a cast'ledik. buna 'explicit conversion' == 'type casting' deniyo. işaret değişimlerinde overflow'u engellemek için long'a çeviriyoruz.
-
+		return (ft_hex((long)va_arg(args, unsigned int)));
 	else if(x == 'X')
-		return ();
+		return (ft_uphex((long)va_arg(args, unsigned int)));
 	else if (x == 'u')
-		return (ft_str(va_arg(args, unsigned int)));
+		return ((unsigned int)ft_putnbr(va_arg(args, int)));
 	return (x);
+}
+int ft_isvalid(char a)
+{
+		if(a == 'c' || a == 's' ||a == 'p'||a == 'd'
+			||a == 'i'|| a == 'u' || a == 'x' || a == 'X' || a == '%'){
+			return (1);
+		}
+		return (0);
 }
 
 int ft_printf(const char *str, ...)
 {
 	int i;
 	int count;
-	char kar;
 	va_list args;
-	va_start(args, str); // va_start cagrisi her zaman % kontrolunden once olmali.
-	// variable str is crucial otherwise i dunno how many args are.
+	va_start(args, str); 
 
 	i = 0;
 	count = 0;
@@ -101,19 +82,27 @@ int ft_printf(const char *str, ...)
 	{
 		if(str[i] == '%')
 		{
-			i++;
-			count += form(str[i], args);
-			i++;
+				i++;
+				count += form(str[i], args);
+				i++;
+		}
+		if(str[i] == ' ')
+		{
+			if(ft_isvalid(str[i]))
+				i++;
 		}
 		else
 			count += ft_putchar(str[i++]);
 	}
-	va_end(args); // 'args' is a variable of type 'va_list' used in a variadic function.
+	va_end(args);
 	return (count);
 }
 
+#include <stdio.h>
+
 int main()
 {
-	ft_printf("Hello %s! Number: %d, Char: %c, Percent: %%\n", "world", 42, 'A');
-	return 0;
+	printf("original:%123");
+	printf("\n---\n");
+	ft_printf("asay:%123");
 }
