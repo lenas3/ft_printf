@@ -12,12 +12,6 @@
 
 #include "ft_printf.h"
 
-int	ft_putchar(char c)
-{
-	write(1, &c, 1);
-	return (0);
-}
-
 int ft_hex(int nb)
 {
 	char 	*set;
@@ -26,13 +20,13 @@ int ft_hex(int nb)
 	set = "0123456789abcdef";
 	if(nb < 0)
 	{
-		ft_putchar('-');
+		ft_char('-');
 		len++;
 		nb = nb * -1;
 	}
 	if (nb < 16)
 	{
-		ft_putchar(set[nb]);
+		ft_char(set[nb]);
 		len++;
 	}
 	if(nb >= 16)
