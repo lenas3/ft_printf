@@ -34,5 +34,6 @@ int ft_hex(int nb)
 		ft_hex((nb / 16));	
 		ft_hex((nb % 16));
 	}
+	len++;
 	return len;
 }
