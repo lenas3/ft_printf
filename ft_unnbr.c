@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str.c                                           :+:      :+:    :+:   */
+/*   ft_unnbr.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asay <asay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/04 21:40:59 by asay              #+#    #+#             */
-/*   Updated: 2025/07/05 22:14:51 by asay             ###   ########.fr       */
+/*   Created: 2025/07/05 20:11:52 by asay              #+#    #+#             */
+/*   Updated: 2025/07/05 22:05:30 by asay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int ft_str(char *str)
+int ft_unnbr(unsigned int i)
 {
-	int i;
-	int count;
-	
-	i = -1;
-	count = 0;
-	while(str[++i])
-	{
-		write(1, &str[i], 1);
-		count++;
-	}
+	int count = 0;
+
+	if (i >= 10)
+		count += ft_unnbr(i / 10);
+	count += ft_char((i % 10) + '0');
+
 	return (count);
 }

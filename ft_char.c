@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str.c                                           :+:      :+:    :+:   */
+/*   ft_char.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asay <asay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/04 21:40:59 by asay              #+#    #+#             */
-/*   Updated: 2025/07/05 22:14:51 by asay             ###   ########.fr       */
+/*   Created: 2025/07/05 21:14:56 by asay              #+#    #+#             */
+/*   Updated: 2025/07/05 22:03:39 by asay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int ft_str(char *str)
+int	ft_char(char c)
 {
-	int i;
-	int count;
+	int value;
 	
-	i = -1;
-	count = 0;
-	while(str[++i])
-	{
-		write(1, &str[i], 1);
-		count++;
-	}
-	return (count);
+	value = write(1, &c, 1);
+	return (value);
 }
