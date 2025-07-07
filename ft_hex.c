@@ -6,19 +6,20 @@
 /*   By: asay <asay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 18:01:24 by asay              #+#    #+#             */
-/*   Updated: 2025/07/04 19:41:40 by asay             ###   ########.fr       */
+/*   Updated: 2025/07/07 18:32:38 by asay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int ft_hex(int nb)
+int	ft_hex(long nb)
 {
-	char 	*set;
-	int 	len;
+	char	*set;
+	int		len;
 
 	set = "0123456789abcdef";
-	if(nb < 0)
+	len = 0;
+	if (nb < 0)
 	{
 		ft_char('-');
 		len++;
@@ -26,14 +27,12 @@ int ft_hex(int nb)
 	}
 	if (nb < 16)
 	{
-		ft_char(set[nb]);
-		len++;
+		len += ft_char(set[nb]);
 	}
-	if(nb >= 16)
+	if (nb >= 16)
 	{
-		ft_hex((nb / 16));	
-		ft_hex((nb % 16));
+		len += ft_hex((nb / 16));
+		len += ft_hex((nb % 16));
 	}
-	len++;
-	return len;
+	return (len);
 }

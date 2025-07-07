@@ -6,19 +6,19 @@
 /*   By: asay <asay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 20:11:52 by asay              #+#    #+#             */
-/*   Updated: 2025/07/05 22:05:30 by asay             ###   ########.fr       */
+/*   Updated: 2025/07/07 18:31:09 by asay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int ft_unnbr(unsigned int i)
+int	ft_unnbr(unsigned int i)
 {
-	int count = 0;
+	int	count;
 
+	count = 0;
 	if (i >= 10)
 		count += ft_unnbr(i / 10);
 	count += ft_char((i % 10) + '0');
-
 	return (count);
 }
