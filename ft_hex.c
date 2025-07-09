@@ -6,13 +6,13 @@
 /*   By: asay <asay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 18:01:24 by asay              #+#    #+#             */
-/*   Updated: 2025/07/07 18:32:38 by asay             ###   ########.fr       */
+/*   Updated: 2025/07/09 18:53:45 by asay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_hex(long nb)
+int	ft_hex(size_t nb)
 {
 	char	*set;
 	int		len;
