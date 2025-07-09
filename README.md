@@ -1,4 +1,5 @@
 *BUFFER MANAGEMENT*
+
 ft_printf projesi için yayınlanmış subject dosyası, orijinal printf gibi buffer management yapmamamızı söylüyor.
 
 C Dilinde Buffer Management Ne Demek? Buffer mangaemnet, bellek üzerinde geçici veri depolama alanları olan tamponların (yani bufferlar) 
@@ -30,6 +31,7 @@ Biz kendi printf fonksiyonumuzda buffer managemnet yapmamamız 'unbuffered' çal
 
 
 *VARIADIC FUNCTIONS*
+
 variadic fonksyionlar , belirsiz sayıda argüman alan fonksiyonlardır. variadic fonksiyonları yazmak için *va_list, va_start, va_arg, va_end* gibi makrolar kullanılır.
   - va_list: sayısı belli olmayan argümanlar listesine erişimi sağlamak için kullanılır. içinde argümanların tutulduğu bir yapı diyebiliriz.
   - va_start: va_list'in başlangıç noktasını ayarlar. Yani sayısı bilinmeyen değişkenlere erişmeyeburadan başlanır.
