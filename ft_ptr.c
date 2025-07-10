@@ -22,7 +22,9 @@ int	ft_ptr(void *ptr)
 	else
 	{
 		len += ft_str("0x");
+	// C'de standart olarak adrsi formatının başında 0x bulunuyor.
 		len += ft_hex((unsigned long)ptr);
+	// bellek adresleri hexadecimal tutulduğ için pointer'ın tuttuğu adresi hex'e ceviriyoruz.
 	}
 	return (len);
 }
