@@ -23,7 +23,8 @@ Aşağıdaki çıktıyı örnek alalım:
         return 0;
     }
 
-_Burada 1. ve 2. printf ile birlikte Hello World çıktısı bekleriz, ancak neew line ekleyen printf olmasa da çıktı alabilir miyiz?_
+_Burada 1. ve 2. printf ile birlikte Hello World çıktısı bekleriz, ancak new line ekleyen printf olmasa da çıktı alabilir miyiz?_
+
 Eğer new line gelen kadar Merhaba ve Dünya çıktılarıyla buffer dolmadıysa Fully Buffered durumu olamaz, eğer new line da yoksa ve buffer tam dolmamışsa terminale 
 bir şey gönderilmeyebilir. Eğer new line olmasa da "Hello World" çıktısı alıyorsam, Hello ve World çıktıları buffer'ı doldurmuş ve Fully Buffered olarak terminale gönderilmiş demektir.
 
