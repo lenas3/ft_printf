@@ -2,10 +2,12 @@
 
 ft_printf projesi için yayınlanmış subject dosyası, orijinal printf gibi buffer management yapmamamızı söylüyor.
 
-C Dilinde Buffer Management Ne Demek? Buffer mangaemnet, bellek üzerinde geçici veri depolama alanları olan tamponların (yani bufferlar) 
+C Dilinde Buffer Management Ne Demek? 
+
+Buffer mangaemnet, bellek üzerinde geçici veri depolama alanları olan tamponların (yani bufferlar) 
 nasıl oluşturulduğunu, kullanıldığını ve yönetildiğini ifade eder.
 
-Standart C kütüphanseinde 3 tür bufferlama olabilir:
+Standart C kütüphanesinde 3 tür bufferlama olabilir:
 
   1. unbuffered (tamponsuz): her karakter anında gönderilir.
   2. Line Buffered (Satır Tamponlu): Satır sonuna (\n) kadar biriktirilip sonra ekrana gönderilir.
