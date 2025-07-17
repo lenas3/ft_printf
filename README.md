@@ -43,32 +43,29 @@ _int	ft_printf(const char *str, ...)_ tarzı bir fonksiyon tanımında ...'tan �
   - va_arg(va_list arg, type): sıradaki argümanı 'type' olarak girilen türde döner. Her çağrıldığında bir sonraki argümana geçer. Burada type yazılırken en düşük tip olarak int girilebilir. Diğer türler için _'Default Argument Promotion**'_ gerçekleşir.
   - va_end(va_list args): kullanım sonunda çağrılmalıdır. "Artık değişken argümanlarla işim bitti, ca_list'İ kapatabilirim" demektir. va_start ve va_arg kullanıldıysa mutlaka sonunda va_end çağrılmalıdır. C99 standardı der ki: "Every *va_start* should be matched with a *va_end.*"
     
-     _-> **Default Argument Promotion:_ va_arg'ın çekeceği veri tipi derleyici tarafından tutulmaz, biz belirleriz. Güvenli argüman çekimini sağlamak için düşük veri tipleri daha büyük veri tiplerine 'promote' edilir. Örneğin float, double'a; char veya unsigned char,  
-    Çünkü zaten bu küçük veri tipleri stack'te int kadar yer kaplar. Derleyivi bu yüzden küçük türleri zaten int'miş gibi alır. Yani örneğin char türünde bir argüman çekmek istersem önce int olarak çekip type casting ile char'a cast'lemeliyim.
+     _-> Default Argument Promotion:_ va_arg'ın çekeceği veri tipi derleyici tarafından tutulmaz, biz belirleriz. Güvenli argüman çekimini sağlamak için düşük veri tipleri daha büyük veri tiplerine 'promote' edilir. Örneğin float, double'a; char veya unsigned char,  
+    Çünkü zaten bu küçük veri tipleri stack'te int kadar yer kaplar. Derleyici bu yüzden küçük türleri zaten int'miş gibi alır. Yani örneğin char türünde bir argüman çekmek istersem önce int olarak çekip type casting ile char'a cast'lemeliyim.
     
 
+_Peki Neden va_arg Makrosu En Düşük İnt Tipi Alıyor? gp_offset ve ft_offset Kavramlarıyla İlişkisi Ne?_
+
+gp_offset ve ft_offset: 
+  gp_offset = general purpose offset, fp_offset = floating point offset
+  bu iki kavram, variadic fonksiyonlarda argümanların nerede tutulduğunu takip etmek için kullanılan offset değerleri yani **konum göstergeleridir.**
+  
+  gp_offset: taşınan tam sayı türündeki (integer, pointer, long vs.) argümanların, kaydedildiği bellekteki yerini gösteren bir offsettir.
+  gp_offset her bir integer için 8 byte ilerler.
+
+  fp_offset: taşınan floating point sayılar (float, double) offsetidir.
+  fp_offset her bir floating point argüman için 16 byte ilerler.
+  
+va_arg'ın en az int değeri almasının sebebi de şudur: biz ilk integer argümanlar gp_offset'e atanır. _(Kafa karışıklığı kalmasın; int ve pointer değerleri gp_offset'e, float ve double değerleri fp_offset'e atanır.)_ Bunlar da gp_offset'te 8 byte'lık ayrımlardır. Ben eğer gidip de ayrılmış 8 byte yerine 1 byte'lık char yazarsam UB (undefined behavior) olur.
 
 
+*Register Overflow Nedir?*
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Bir fonksyiona aktarılan argüman sayısı önce veri türüne göre fp_offset ya da gp_offset'e atanır deöiştik. Bu atama sırasında argümanlar register denilen küçük bellek birimlerine atanır. REgister overdlow durumu ise girilen fonksiyonların register'lara sığmamasından kaynaklı oluşan durumdur. 
+Bu durum yaşandığında kalan veriler stack'e yazılır. Overflow burada bazı verilerin register'lara sığmadığından stack'e yerleştirildiğini anlatır, matematiksel bir taşma değildir.
 
 
 
