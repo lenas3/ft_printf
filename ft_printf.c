@@ -6,7 +6,7 @@
 /*   By: asay <asay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:36:42 by asay              #+#    #+#             */
-/*   Updated: 2025/07/07 18:29:16 by asay             ###   ########.fr       */
+/*   Updated: 2025/07/10 16:54:36 by asay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	form(char x, va_list args)
 		if (str == NULL)
 			str = "(null)";
 		return (ft_str(str));
-	}	
+	}
 	else if (x == 'd' || x == 'i')
 		return (ft_nbr(va_arg(args, int)));
 	else if (x == 'c')

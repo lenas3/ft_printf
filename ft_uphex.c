@@ -6,13 +6,13 @@
 /*   By: asay <asay@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 18:34:42 by asay              #+#    #+#             */
-/*   Updated: 2025/07/09 18:41:39 by asay             ###   ########.fr       */
+/*   Updated: 2025/07/10 15:16:26 by asay             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_uphex(long nb)
+int	ft_uphex(size_t nb)
 {
 	char	*set;
 	int		len;
